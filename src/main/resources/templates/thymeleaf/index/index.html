@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<title>helloWorld!</title>
+<meta name="description" content="租户门户系统首页" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+	<div th:include="thymeleaf/include/includeSource"></div>
+	<p>index</p>
+	<table class="table table-striped table-bordered table-hover"
+		id="table"></table>
+</body>
+<script type="text/javascript">
+	/*<![CDATA[*/
+	AppContextPath = function getContextPath() {
+		var pathName = document.location.pathname;
+		var index = pathName.substr(1).indexOf("/");
+		var result = pathName.substr(0, index + 1);
+		return result;
+	}
+	var APP_CONTEXT = AppContextPath();
+
+	$(function() {
+		$('#table').bootstrapTable(
+				{
+					url : APP_CONTEXT + '/index/queryUserTest', // 请求后台的URL（*）
+					striped : true, // 是否显示行间隔色
+					pagination : true, // 是否显示分页（*）
+					uniqueId : "onesid", // 每一行的唯一标识，一般为主键列
+					pageNumber : 1, // 初始化加载第一页，默认第一页
+					pageSize : 5, // 每页的记录行数（*）
+					pageList : [ 5, 10, 15, 20, 25 ], // 可供选择的每页的行数（*）
+					editable : true,//开启编辑模式  
+					clickToSelect : true,
+					singleSelect : false,
+					//showColumns : true, // 是否显示所有的列
+					columns : [
+							{
+								field : 'state',
+								checkbox : true
+							},
+							{
+								filed : "rowIndex",
+								title : '序号',
+								formatter : function(value, row, index) {
+									var option = $('#smsSendPersonTable')
+											.bootstrapTable('getOptions');
+									return index + 1;
+								}
+							}, {
+								field : 'memberCardType',
+								title : '会员类型',
+								align : 'center',
+								valign : 'middle',
+								//formatter:initMemberCardType
+							}, {
+								field : 'peopleAmount',
+								title : '人数',
+								editable : {
+									type : 'number',
+									title : '人数',
+									showbuttons : false,
+									emptytext : '请点击填写',
+									mode : 'inline',
+									onblur : 'submit',
+								}
+							}, {
+								field : 'consumeRankStart',
+								title : '消费排名起',
+							}, {
+								field : 'consumeRankEnd',
+								title : '消费排名止',
+							} ],
+					formatNoMatches : function() { // 没有匹配的结果
+						return '无匹配的记录';
+					},
+					onLoadError : function(data) { // 加载失败时执行
+						layer.msg("加载数据失败");
+						$('#reportTable').bootstrapTable('removeAll');
+					},
+					onLoadSuccess : function(data) { // 加载成功时执行
+					},
+					onRefresh : function(data) { // 数据重载
+					},
+				});
+	})
+
+	/*]]>*/
+</script>
+</html>
