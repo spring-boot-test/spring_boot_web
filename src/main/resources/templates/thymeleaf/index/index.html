@@ -12,6 +12,15 @@
 	<p>index</p>
 	<table class="table table-striped table-bordered table-hover"
 		id="table"></table>
+		
+		
+		
+	<div style="margin-top:100px">
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="注销"/>
+        </form>
+    </div>
 </body>
 <script type="text/javascript">
 	/*<![CDATA[*/

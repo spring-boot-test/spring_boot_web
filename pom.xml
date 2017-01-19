@@ -65,6 +65,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+		<!-- 
+            Spring Boot应用启动器Starter-web:
+            支持全栈式Web开发，包括Tomcat和spring-webmvc
+             -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -108,7 +112,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<!-- 依赖spring_boot_core -->		
+		<!-- 依赖spring_boot_core -->
 		<dependency>
 			<groupId>com.hubert</groupId>
 			<artifactId>spring_boot_core</artifactId>
@@ -126,15 +130,22 @@
 			<artifactId>spring_boot_service</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>springloaded</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!--分页插件 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.1</version>
 		</dependency>
 
 	</dependencies>
