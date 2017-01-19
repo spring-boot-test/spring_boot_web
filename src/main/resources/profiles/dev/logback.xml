@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <property resource="application.properties"/>
+    
+    <property name="log_path" value="/apps/logs/springboot" />
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<!-- 输出到控制台 -->
+    <appender name="MYCONSOLE" class="ch.qos.logback.core.ConsoleAppender">  
+        <encoder charset="UTF-8" class="com.hubert.core.logging.logback.LogBackExEncoder">
+            <pattern>[%TID] %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+        </encoder>  
+    </appender>
+	<!-- 输出到文件 -->
+    <appender name="FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_path}/${server.port}/tenant-web-site.log</file>
+        
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${log_path}/${server.port}/tenant-web-site-%d{yyyy-MM-dd}-%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>5MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>  
+        <encoder charset="UTF-8" class="com.hubert.core.logging.logback.LogBackExEncoder">
+            <pattern>[%TID] %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+        </encoder>  
+    </appender>
+    <!-- 打印sql -->
+    <logger name="com.ibatis" level="DEBUG">
+        <appender-ref ref="MYCONSOLE" />
+    </logger>
+    <logger
+        name="org.springframework.core.type.classreading.AnnotationAttributesReadingVisitor"
+        level="ERROR">
+        <appender-ref ref="FILE" />
+    </logger>
+	<!-- 打印sql -->
+    <logger name="java.sql" level="DEBUG">
+        <appender-ref ref="MYCONSOLE" />
+    </logger>
+
+    <root level="INFO">
+        <!-- <appender-ref ref="FILE" /> -->
+        <appender-ref ref="MYCONSOLE" />
+    </root>
+    
+    <logger name="com.hubert" level="DEBUG" additivity="true">
+        <!-- <appender-ref ref="MYCONSOLE" /> -->
+        <!-- <appender-ref ref="FILE" />   -->
+        <appender-ref ref="MYCONSOLE" />
+    </logger>
+</configuration>
