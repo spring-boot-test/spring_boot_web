@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Spring Security Example </title>
-    </head>
-    <body>
-        <div th:if="${param.error}">
-            默认账号密码错误提示 <br/>
-            用户名或密码错误！
-        </div>
-        <div th:if="${param.logout}">
-            默认退出登录提示<br/>
-            您已退出登录成功！
-        </div>
-        <form th:action="@{/login}" method="post">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+	<div th:if="${param.error}">
+		默认账号密码错误提示 <br /> 用户名或密码错误！
+	</div>
+	<div th:if="${param.logout}">
+		默认退出登录提示<br /> 您已退出登录成功！
+	</div>
+	
+	<h1>Login</h1>
+	
+	<form th:action="@{/login}" method="post">
             <div><label> 用户名 : <input type="text" name="username"/> </label></div>
             <div><label> 密  码 : <input type="password" name="password"/> </label></div>
             <div><input type="submit" value="登录"/></div>
         </form>
-    </body>
+	
+	<form id="googleLoginForm"
+		method="post">
+		
+		
+		<input name="openid_identifier" type="hidden"
+			value="https://www.google.com/accounts/o8/id" /> <input
+			name="openid.ns.pape" type="hidden"
+			value="http://specs.openid.net/extensions/pape/1.0" /> <input
+			name="openid.pape.max_auth_age" type="hidden" value="0" />
+
+		<p>
+			<input name="submit" value="Login using Google" type="submit" />
+		</p>
+	</form>
+</body>
 </html>
